@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: aqs-agent-service
+  profiles:
+    active: composite
+  datasource:
+    url: "jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/${DB_NAME:world}?useSSL=false&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+    username: "${DB_USERNAME:devteam}"
+    password: "${DB_PASSWORD:*devteam@123}"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 5
+  output:
+    ansi:
+      enabled: NEVER
+server:
+  servlet:
+    contextPath: /aqs-agent-service
+  port: 9194
+  compression:
+    enabled: true
+    min-response-size: 512
+logging:
+  file:
+    name: logs/aqs-agent-service.log
+  logback:
+    rollingpolicy:
+      max-history: 2
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: false
