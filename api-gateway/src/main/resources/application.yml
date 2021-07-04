@@ -1,0 +1,21 @@
+server:
+  port: 8282
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: follow-order-service
+          uri: https://demo.beatus88.com/follow-order-service
+          predicates:
+            - Path=/api/follow-order-service/**
+        - id: horse-perf-service
+          uri: https://demo.beatus88.com/horse-perf-service
+          predicates:
+              - Path=/api/horse-perf-service/**
+      default-filters:
+        - name: BasePatchFilter
+        - name: AuthFilter
+  webflux:
+    base-path: /api
